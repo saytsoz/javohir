@@ -48,7 +48,9 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                 '/page' =>'/main/page',
+                //  '/page' =>'/main/page',
+                 '/page/<id:[a-z0-9_\-]+>' =>'/main/page',
+                 '/category/<id:\d+>' =>'/main/category',
             ],
         ],
        

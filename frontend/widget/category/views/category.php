@@ -5,11 +5,11 @@ use yii\helpers\Html;
 
 <ul class="vertical-menu-list">
 <?php foreach($category as $item): ?>
-     <li class=""><a href="shop.html"><span><img src="/images/vertical-menu/1.png" alt="menu-icon"></span><?= $item->newtitle?><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+     <li class=""><a href=""><span><img src="/images/vertical-menu/1.png" alt="menu-icon"></span><?= $item->newtitle?><i class="fa fa-angle-right" aria-hidden="true"></i></a>
       <?php if($item->childmenu): ?> 
      <ul class="ht-dropdown mega-child">
          <?php foreach($item->childmenu as $value):?>
-           <li><a href="shop.html"><?=$value->newtitle?><i class="fa fa-angle-right"></i></a>
+           <li><a href="<?= \yii\helpers\Url::to(['/main/category','id' => $value['id']]) ?>"><?=$value->newtitle?><i class="fa fa-angle-right"></i></a>
            <?php if($value->childmenu): ?>
                 <ul class="ht-dropdown mega-child">
                 <?php foreach($value->childmenu as $sub_title): ?>
@@ -24,5 +24,4 @@ use yii\helpers\Html;
              
       </li>
 <?php  endforeach?>
- </ul>
-
+                </ul>

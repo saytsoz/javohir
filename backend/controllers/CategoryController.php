@@ -8,6 +8,7 @@ use common\models\CategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * CategoryController implements the CRUD actions for category model.
@@ -69,13 +70,22 @@ class CategoryController extends Controller
     {
         $model = new category();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+            if(isset($_FILES['Category']['name']['img_url']) && $_FILES['Category']['name']['img_url']){
+                $path = Yii::getAlias("@frontend/web/uploads/pages/");
+               // BaseFileHelper::createDirectory($path);
+                $file = UploadedFile::getInstance($model,'img_url');
+                $name = time().'rasm_bir'.'.'.$file->extension;
+                $file->saveAs($path .DIRECTORY_SEPARATOR .$name);
+                $model->img_url = $name;
+            }
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -89,13 +99,22 @@ class CategoryController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+            if(isset($_FILES['Category']['name']['img_url']) && $_FILES['Category']['name']['img_url']){
+                $path = Yii::getAlias("@frontend/web/uploads/pages/");
+               // BaseFileHelper::createDirectory($path);
+                $file = UploadedFile::getInstance($model,'img_url');
+                $name = time().'rasm_bir'.'.'.$file->extension;
+                $file->saveAs($path .DIRECTORY_SEPARATOR .$name);
+                $model->img_url = $name;
+            }
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -110,6 +129,22 @@ class CategoryController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionDeletePhoto($id,$imagebg){
+        $model = $this -> findModel($id);
+        $image = Yii:: getAlias('@frontend/web/uploads/pages/'). $model->$imagebg;
+
+            if(file_exists($image)){
+                unlink($image);
+                $model->$imagebg = null;
+            }else{
+                $model->$imagebg = null;
+            }
+
+            $model->save(false);
+
+            $this->redirect(['update','id'=>$model->id]);
     }
 
     /**
