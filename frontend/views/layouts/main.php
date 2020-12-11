@@ -56,7 +56,7 @@ AppAsset::register($this);
                     </div>
                     <div class="subscribe-bottom mt-15">
                         <input type="checkbox" id="newsletter-permission">
-                        <label for="newsletter-permission">Don't show this  </label>
+                        <label for="newsletter-permission">Don't show this popup again</label>
                     </div>
                 </div>
             </div>
