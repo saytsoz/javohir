@@ -1,7 +1,7 @@
 <?php
 
 namespace common\models;
-
+use yii\helpers\Html;
 use Yii;
 
 /**
@@ -110,4 +110,30 @@ class Category extends \yii\db\ActiveRecord
     public function getChildmenu(){
         return $this->hasMany(self:: className(),['parent_id'=>'id']);
     }
+    public function getProduct(){
+        return $this->hasMany(product::className(),['category_id'=>'id']);
+    }
+
+    public function getDisplayOne(){
+        if(empty($this->img_url)){
+            $image = null;
+        }
+        else{     
+            $image = Html::img(Yii::getAlias('@uploadPage'). $this->img_url,[
+                'alt'=>'image for page',
+                'title'=>'нажмите кнопку удалить для загрузку нового рисунка ',
+                'class'=> 'file-preview-image',
+                'width'=>'500px'
+                ]);
+            }  
+            
+            return($image == null) ? null:
+               Html::tag ('div',$image,['class'=>'file-preview-frame']);
+
+               
+        
+    }
+
 }
+
+

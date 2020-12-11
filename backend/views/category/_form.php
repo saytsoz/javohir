@@ -3,6 +3,7 @@
 use common\models\Category;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\file\Fileinput;
 
 
 
@@ -59,7 +60,20 @@ $parent_cat = Category::find()->all();
 
     <?= $form->field($model, 'text_en')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'img_url')->textInput(['maxlength' => true]) ?>
+    <?php
+        echo  $model->getDisplayOne();
+        if(empty($model->img_url)){
+        echo $form->field($model, 'img_url')->widget(FileInput::classname(),[
+            'options' =>['accept'=>'image/*'],
+        ]);
+        }
+        else{
+            echo Html::a('удалить фото', \yii\helpers\Url::to(['/category/delete-photo','id'=>$model->id,'imagebg'=>'img_url']) ,
+        
+                ['class'=>'btn btn-danger']);
+        }
+    
+    ?>
 
     <?= $form->field($model, 'hit')->dropDownList([ '0', '1', ], ['prompt' => '']) ?>
 

@@ -36,6 +36,23 @@ class Nav extends \yii\db\ActiveRecord
         return 'nav';
     }
 
+
+    public $newtitle;
+    
+
+    public function afterFind()
+    {
+        if(Yii::$app->language == 'uz-UZ'){
+            $this->newtitle = $this->title_uz;
+       
+        }
+        else if(Yii::$app->language == 'en-EN'){
+            $this->newtitle = $this->title_en;
+        }
+        else{
+            $this->newtitle = $this->title;
+        }     
+    }
     /**
      * {@inheritdoc}
      */
