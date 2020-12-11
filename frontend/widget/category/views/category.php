@@ -2,6 +2,8 @@
 use yii\helpers\Html;
 ?>
 
+<!-- qwerty -->
+
 
 <ul class="vertical-menu-list">
 <?php foreach($category as $item): ?>
