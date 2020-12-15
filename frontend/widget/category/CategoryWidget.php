@@ -11,11 +11,8 @@ class CategoryWidget extends \yii\bootstrap\widget
     public function init(){}
 
     public function run(){
-<<<<<<< HEAD
-      $category = Category:: find()->orderBy(['number'=>SORT_ASC])->where('parent_id=0')->all();
-=======
-      $category = Category:: find()->orderBy(['number'=>SORT_ASC])->where(['parent_id' => 0])->all();
->>>>>>> af803582f88b9d3dbbfd79111ea421955e619ed6
+
+      $category = Category::find()->orderBy(['number'=>SORT_ASC])->where(['parent_id' => 0])->all();
 
        return $this->render('category',['category' => $category]);
     }

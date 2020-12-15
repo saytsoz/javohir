@@ -2,10 +2,7 @@
 
 namespace common\models;
 use yii\helpers\Html;
-<<<<<<< HEAD
-=======
-//  javohir
->>>>>>> af803582f88b9d3dbbfd79111ea421955e619ed6
+
 
 use Yii;
 
